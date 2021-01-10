@@ -5,42 +5,36 @@ var questionContainer = document.getElementById('question-container')
 var nextBtn = document.getElementById('next-btn')
 var answerButtonsElement = document.getElementById('answer-buttons')
 var questions = document.getElementById('question')
-var questionName = [{
+var questionName = [
+    {
     question: "Question 1",
-    answer: [{
-            text: 'answer1.1', correct: false
-        },
-        {
-            text: 'answer1.2', correct: false
-        },
-        {
-            text: 'answer1.3', correct: true
-        },
-        {
-            text: 'answer1.4', correct: false
-        }
+    answer: [
+        {text: 'answer1.1', correct: false},
+        {text: 'answer1.2', correct: false},
+        {text: 'answer1.3', correct: true},
+        {text: 'answer1.4', correct: false}
     ]
-}]
+}
+]
 
-
-
-startBtn.addEventListener("click", (startQuiz))
+startBtn.addEventListener('click', startQuiz)
 
 function startQuiz() {
     startBtn.classList.add('hide')
     questionContainer.classList.remove('hide')
     resetState()
-    setQuestion()
+    setFirstQuestion()
 }
 
-function setQuestion(){
-    for (let index = 0; index < questionName.length; index++) {
-        console.log(questionName[index].question);
-        questions.innerHTML = questionName[index].question;
-        console.log(questionName[index].answer)
-        questionName[index].answer.forEach(() => {
+function setFirstQuestion(){
+    for (var i = 0; i < questionName.length; i++) {
+        console.log(questionName[i].question);
+        const element = questionName[i]
+        questions.innerHTML = questionName[i].question;
+        console.log(questionName[i].answer)
+        questionName[i].answer.forEach(() => {
             var answerBtn = document.createElement('button')
-            answerBtn.innerHTML = questionName[index].answer.text
+            answerBtn.innerHTML = questionName[i].answer[i].text
             answerBtn.classList.add('btn')
             answerBtn.addEventListener('click', selectAnswer)
             answerButtonsElement.appendChild(answerBtn);
@@ -48,6 +42,7 @@ function setQuestion(){
         })
     }
 }
+
 //Function to reset the state to allow for the next set of questions
 function resetState() {
     nextBtn.classList.add('hide')
@@ -66,6 +61,7 @@ function selectAnswer() {
         alert("That's incorrect")
     }
 }
+
 nextBtn.addEventListener('click', () => {
     setNextQuestion()
 })
@@ -73,5 +69,4 @@ nextBtn.addEventListener('click', () => {
 function setNextQuestion() {
     nextBtn.classList.add('hide');
     resetState();
-    questionName[index++]
 }
